@@ -59,7 +59,7 @@ class HashTable:
 
         Fill this in.
         '''
-        hash_value = self._hash_mod(key)
+        index = self._hash_mod(key)
         new_node = LinkedPair(key, value)
         if self.storage[hash_value] is None:
             self.storage[hash_value] = new_node
@@ -76,11 +76,12 @@ class HashTable:
 
         Fill this in.
         '''
-        hashed_key = self._hash_mod(key)
+        index = self._hash_mod(key)
         try:
-            self.storage.remove(self.storage[hashed_key])
+            self.storage[index] = self.storage[index].next
         except IndexError:
             print("Could not find given key.")
+            return
 
 
     def retrieve(self, key):
