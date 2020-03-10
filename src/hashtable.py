@@ -65,6 +65,11 @@ class HashTable:
             self.storage[index] = new_node
         else:
             current_node = self.storage[index]
+            # traverse to the tail of the linked list
+            while current_node.next is not None:
+                current_node = current_node.next
+            current_node.next = new_node
+
             
 
     def remove(self, key):
