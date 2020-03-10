@@ -67,6 +67,9 @@ class HashTable:
             current_node = self.storage[index]
             # traverse to the tail of the linked list
             while current_node.next is not None:
+                if current_node.key == key:
+                    current_node.value = value
+                    return
                 current_node = current_node.next
             current_node.next = new_node
 
@@ -115,7 +118,16 @@ class HashTable:
 
         Fill this in.
         '''
-        new_storage = [None] * (self.capacity * 2)
+        new_hashtable = HashTable(self.capacity * 2)
+        for i in range(self.capacity):
+            current_node = self.storage[i]
+            while current_node is not None:
+                new_hashtable.insert(current_node.key, current_node.value)
+                current_node = current_node.next
+        self.storage = new_hashtable.storage
+        self.capacity = new_hashtable.capacity
+
+
 
 
 # if __name__ == "__main__":
