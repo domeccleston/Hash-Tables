@@ -79,6 +79,7 @@ class HashTable:
         index = self._hash_mod(key)
         try:
             self.storage[index] = self.storage[index].next
+            return
         except IndexError:
             print("Could not find given key.")
             return
@@ -92,18 +93,15 @@ class HashTable:
 
         Fill this in.
         '''
-        hashed_key = self._hash_mod(key)
-        if self.storage[hashed_key].value is None:
-            return None
-        else:
-            i = self.storage[hashed_key]
-            if i.key == hashed_key:
-                return i.value
-            else:
-                while i.next != None:
-                    if i.key == hashed_key:
-                        return i.value
-                    i = i.next
+        index = self._hash_mod(key)
+
+        current_node = self.storage[index]
+
+        while current_node is not None:
+            if current_node.key == key:
+                return current_node.value
+            current_node = current_node.next
+
         return None
 
     def resize(self):
